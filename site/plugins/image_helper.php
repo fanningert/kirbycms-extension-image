@@ -95,13 +95,21 @@ class ImageHelper {
 
     // try to get some infos from the image object, when the attr are empty
     if($file) {
-      if( ($param['alt'] === true or empty($param['alt'])) and !empty($file->alt()) ) {
+    	$param_alt = $param['alt'];
+    	$file_alt = $file->alt();
+    	if( ($param['alt'] === true or empty($param_alt)) and !empty($file_alt) ) {
         $param['alt'] = $file->alt();
       }
-      if( ($param['title'] === true or empty($param['title'])) and !empty($file->title()) ) {
+      $param_title = $param['title'];
+      $file_title = $file->title();
+      if( ($param['title'] === true or empty($param_title)) and !empty($file_title) ) {
         $param['title'] = $file->title();
       }
-      if( $param['caption'] !== false and ( $param['caption'] === true or empty($param['caption'])) and $param['caption_field'] !== false and !empty($param['caption_field']) and !empty($file->$param['caption_field']())){
+      $param_caption = $param['caption'];
+      $param_caption_field = $param['caption_field'];
+      $file_caption_field = '';//$file->$param['caption_field'];
+      if( $param['caption'] !== false and ( $param['caption'] === true or empty($param_caption))
+      		and $param['caption_field'] !== false and !empty($param_caption_field) and !empty($file_caption_field)){
         $param['caption'] = $file->$param['caption_field']();
       }
     }
