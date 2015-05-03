@@ -40,7 +40,8 @@ kirbytext::$tags['image'] = array(
     }
     unset($image_options['target']);
     unset($image_options['popup']);
-    if(!empty($tag->target()))
+    $file_alt = $file->alt();
+    if(!empty($file_alt))
       $image_options['target'] = $tag->target();
 
     if(array_key_exists('alt', $image_options) and !$image_options['alt'] and empty($image_options['alt']) and array_key_exists('text', $image_options) and !$image_options['text'] and !empty($image_options['text'])){
