@@ -18,7 +18,7 @@ class ImageExt {
 	
 	const PROFILE_NONE = "none";
 	
-	const CONFIG_PARAM_PREFIX = "kirby.extension.imageext";
+// 	const CONFIG_PARAM_PREFIX = "kirby.extension.imageext";
 	const CONFIG_PARAM_DEFAULT_DRIVER = "kirby.extension.imageext.driver";
 	const CONFIG_PARAM_SUPPORT_TAG_IMAGE = "kirby.extension.imageext.support.tag.image";
 	const CONFIG_PARAM_SUPPORT_TAG_GALLERY = "kirby.extension.imageext.support.tag.image_gallery";
