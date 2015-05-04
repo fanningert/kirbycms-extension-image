@@ -81,7 +81,8 @@ kirbytext::$tags['image_gallery'] = array(
     $images = explode(",", $tag->attr('image_gallery'));
 
     foreach(kirbytext::$tags['image_gallery']['attr'] as $name) {
-      if( !empty($value = $tag->attr($name)) )
+      $value = $tag->attr($name);
+      if( !empty($value) )
         $image_options[$name] = $value;
     }
     
