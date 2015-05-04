@@ -1,15 +1,72 @@
 # KirbyText Extension - Image
 
-*Version:* 0.7
+This extended version of the original KirbyTag image function. You can replace the default `image` with set the config parameter. A gallery tag is also included.
 
-This extended version of the original KirbyTag image function replace the original.
+Live example can you see in action here: [Kirby Extension - Image Extended](https://www.fanninger.at/thomas/works/kirbycms-extension-image)
+
+
+## Installation
+
+### GIT
+
+Go into the `{kirby_installation}/site/plugins` directory and execute following command.
+
+```bash
+$ git clone https://github.com/fanningert/kirbycms-extension-webhelper.git
+$ git clone https://github.com/fanningert/kirbycms-extension-image.git
+```
+
+### GIT submodule
+
+Go in the root directory of your git repository and execute following command to add the repository as submodule to your GIT repository.
+
+```bash
+$ git submodule add https://github.com/fanningert/kirbycms-extension-webhelper.git ./site/plugins/kirbycms-extension-webhelper
+$ git submodule add https://github.com/fanningert/kirbycms-extension-image.git ./site/plugins/kirbycms-extension-image
+$ git submodule init
+$ git submodule update
+```
+
+### Manuell
+
+## Update
+
+### GIT
+
+Go into the `{kirby_installation}/site/plugins/kirbycms-extension-image` directory and execute following command.
+
+```bash
+$ git pull
+```
+Don't forget to update the requirement `kirbycms-extension-webhelper`.
+
+### GIT submodule
+
+Go in the root directory of your git repository and execute following command to update the submodule of this extension.
+
+```bash
+$ git submodule update
+```
 
 ## ToDos
 
-* Make the overwrite of the original KirbyTag as an Option.
-* Upscale function
+* Add water stamp support (`kirby.extension.imageext.watermark`) or you can use the overlay filter (`overlay`) to overlay the image with a other image
+* Add ImageMagick support
+* Reactivate the support for the simple gallery tag
+* Documentation, Wiki ...
 
 ## Changes
+
+### 0.9
+
+* Complete new written (integrate support for complex image tags like `picture`)
+* New project structure for easier integration and update via git
+* Default tags are `imageext` and `imageext_gallery`, but you can reactivate the support for the other tags (`kirby.extension.imageext.support.tag.image`, `kirby.extension.imageext.support.tag.image_gallery`)
+* Attribute `resize` is deprecated (currently it is working), please use in the future `mode`.
+* Add new Filter (`brightness`, `contrast`, `colorize`, `edges`, `emboss`, `invert`, `opacity`, `sepia`, `sketch`, `smooth`, `pixelate`)
+* Add new config parameter for gallery and Javascript zoom libraries
+* Add image profile support
+* Currently only support for GD-Library is included. ImageMagick support will come in a later release.
 
 ### 0.7
 
@@ -34,127 +91,4 @@ This extended version of the original KirbyTag image function replace the origin
 
 * Initial version
 
-## Options for KirbyTag - Image
-
-| Option | Default | Values | Description |
-| ------ | ------- | ------ | ----------- |
-| width | empty | {number} | Image width for the resize methode |
-| height | empty | {number} | Image height for the resize methode |
-| width_output | false | true/false | Activate or Deactivate the width attribute output |
-| height_output | false | true/false | Activate or Deactivate the height attribute output |
-| alt | false | false/{string} | |
-| text | false | false/{string} | Fallback for `alt` |
-| title | false | false/{string} | |
-| class | empty| {string} | Class for the figure element |
-| imgclass | empty | {string} | Class for the img element |
-| linkclass | empty | {string} | Class for the link element |
-| caption | false | true/false/{string} | Caption from file field active (true/false) or a caption string |
-| caption_field | false | false/{fieldname} | File field which is used for the caption text |
-| caption_top | false | true/false | Position of the caption, top or bottom of the image |
-| link | empty | {string} | |
-| target | empty | {string} | Same effect like the html target attribute |
-| popup | empty | {string} | Fallback for `target` |
-| rel | empty | {string} | |
-| resize | false | false/resize/crop | Image resize methode |
-| quality | 100 | 1-100 | Quality of the result |
-| blur | false | true/false | Blurs the image using the Gaussian method |
-| upscale | false | true/false | Upscale the image (inprogress) |
-| grayscale | false | true/false | Converts the image into grayscale |
-
-## Options for KirbyTag - ImageGallery
-
-| Option | Default | Values | Description |
-| ------ | ------- | ------ | ----------- |
-| width | empty | {number} | Image width for the resize methode |
-| height | empty | {number} | Image height for the resize methode |
-| width_output | false | true/false | Activate or Deactivate the width attribute output |
-| height_output | false | true/false | Activate or Deactivate the height attribute output |
-| galleryclass | empty | {string} | Class for the gallery element |
-| imgclass | empty | {string} | Class for the img element |
-| linkclass | empty | {string} | Class for the link element |
-| caption | false | true/false/{string} | Caption from file field active (true/false) or a caption string |
-| caption_field | false | false/{fieldname} | File field which is used for the caption text |
-| caption_top | false | true/false | Position of the caption, top or bottom of the image |
-| link | empty | {string} | |
-| resize | false | false/resize/crop | Image resize methode |
-| quality | 100 | 1-100 | Quality of the result |
-| blur | false | true/false | Blurs the image using the Gaussian method |
-| upscale | false | true/false | Upscale the image (inprogress) |
-| grayscale | false | true/false | Converts the image into grayscale |
-
-## Config Options
-
-| Kirby option | Default | Values | Description |
-| ------------ | ------- | ------ | ----------- |
-| kirbytext.image.width | empty   | {number} | Default width for an image |
-| kirbytext.image.height | empty   | {number} | Default height for an image |
-| kirbytext.image.width_output | false | true/false | Activate or Deactivate the width attribute outpute |
-| kirbytext.image.height_output | false | true/false | Activate or Deactivate the height attribute output |
-| kirbytext.image.figureclass | 'image' | {string} | Default class for the figure element |
-| kirbytext.image.imgclass | empty | {string} | Default class for the img element |
-| kirbytext.image.linkclass | empty | {string} | Default class for the link element |
-| kirbytext.image.caption | 'false' | true/false/{string} | Caption active (true/false) or a default caption |
-| kirbytext.image.caption_top | 'false' | true/false | Position of the caption, top or bottom of the image |
-| kirbytext.image.caption_field | 'false' | false/{fieldname} | File field which is used for the caption text. |
-| kirbytext.image.target | empty | {string} | Same effect like the html target attribute |
-| kirbytext.image.resize | 'false' | false/resize/crop | Image resize methode |
-| kirbytext.image.quality | 100 | 1-100% | Qualitiy of the result |
-| kirbytext.image.blur | 'false' | true/false | Blur filter |
-| kirbytext.image.upscale | 'false' | true/false | Upscale image |
-| kirbytext.image.grayscale | 'false' | true/false | Grayscale filter |
-
-## Examples
-
-### Simple
-
-```
-(image: dsc00439.jpg width: 200)
-```
-
-### Resize
-
-```
-(image: dsc00439.jpg resize: resize width: 200 height: 200)
-```
-
-```
-(image: dsc00439.jpg resize: resize width: 200)
-```
-
-### Crop
-
-```
-(image: dsc00439.jpg resize: crop width: 200 height: 200)
-```
-
-### Blur
-
-```
-(image: dsc00439.jpg resize: resize width: 200 blur: true)
-```
-
-### Grayscale
-
-```
-(image: dsc00439.jpg resize: resize width: 200 grayscale: true)
-```
-
-### Upscale (not working at the moment)
-
-```
-(image: dsc00439_small.jpg resize: resize width: 200 upscale: true)
-```
-
-### Caption
-
-#### Caption at the bottom
-
-```
-(image: dsc00439.jpg resize: resize width: 200 caption: Test)
-```
-
-#### Caption at the top
-
-```
-(image: dsc00439.jpg resize: resize width: 200 caption: Test caption_top: true)
-```
+TODO

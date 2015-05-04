@@ -1,9 +1,0 @@
-{
-    "name": "image",
-    "readable": "Image Extented",
-    "version": "0.7",
-    "stable": true,
-    "description": "This extended version of the original KirbyTag image function replace the original.",
-    "author": "Thomas Fanninger",
-    "url": "http://thomas.fanninger.at"
-}

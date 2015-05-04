@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+include_path=2;/kirbycms-extension-webhelper
+phpVersion=php5.4
+useShortTags=true
