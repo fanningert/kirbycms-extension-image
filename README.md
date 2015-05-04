@@ -48,6 +48,13 @@ Go in the root directory of your git repository and execute following command to
 $ git submodule update
 ```
 
+## Upgrade from version lower then 0.9
+
+Delete following files and then use the install instruction.
+
+* {kirby-install}/site/tags/image.php
+* {kirby-install}/site/plugins/image_helper.php
+
 ## ToDos
 
 * Add water stamp support (`kirby.extension.imageext.watermark`) or you can use the overlay filter (`overlay`) to overlay the image with a other image
