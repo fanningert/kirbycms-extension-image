@@ -2,8 +2,7 @@
 
 This extended version of the original KirbyTag image function. You can replace the default `image` with set the config parameter. A gallery tag is also included.
 
-Live example can you see in action here: [Kirby Extension - Image Extended](https://www.fanninger.at/thomas/works/kirbycms-extension-image)
-
+Examples can you see in action here: [Kirby Extension - Image Extended](https://www.fanninger.at/thomas/works/kirbycms-extension-image)
 
 ## Installation
 
@@ -55,11 +54,18 @@ Delete following files and then use the install instruction.
 * {kirby-install}/site/tags/image.php
 * {kirby-install}/site/plugins/image_helper.php
 
+## Documentation
+
+Look at the GitHub Wiki.
+
 ## ToDos
 
 * Add water stamp support (`kirby.extension.imageext.watermark`) or you can use the overlay filter (`overlay`) to overlay the image with a other image
 * Add ImageMagick support
 * Reactivate the support for the simple gallery tag
+* Upscale support
+* Reactivate the support for caption field as image title
+* Default profile parameter `kirby.extension.imageext.default_profile`
 * Documentation, Wiki ...
 
 ## Changes
@@ -97,5 +103,3 @@ Delete following files and then use the install instruction.
 ### 0.3
 
 * Initial version
-
-TODO
