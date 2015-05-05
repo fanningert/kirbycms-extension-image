@@ -18,6 +18,11 @@ class ImageExt {
 	
 	const PROFILE_NONE = "none";
 	
+	const TAG_GALLERY_IMAGE = "image_gallery";
+	const TAG_GALLERY_IMAGEEXT = "imageext_gallery";
+	const TAG_IMAGE = "image";
+	const TAG_IMAGEEXT = "imageext";
+	
 // 	const CONFIG_PARAM_PREFIX = "kirby.extension.imageext";
 	const CONFIG_PARAM_DEFAULT_DRIVER = "kirby.extension.imageext.driver";
 	const CONFIG_PARAM_SUPPORT_TAG_IMAGE = "kirby.extension.imageext.support.tag.image";
@@ -297,24 +302,34 @@ class ImageExt {
 			$this->profiles = $this->profiles[self::CONFIG_PARAM_PROFILES];
 		}
 	}
-
-	public function execute($value, $attr_template = null){
-		// Galaries
-		$value = $this->executeGalleries('imageext_gallery', $value);
-		if ( kirby()->option(ImageExt::CONFIG_PARAM_SUPPORT_TAG_GALLERY, 'false') === true ){
-			$value = $this->executeGalleries('image_gallery', $value);
-		}
-		
-		// Images
-		$value = $this->executeImages('imageext', $value, $attr_template);
+	
+	public function getThumb($attr){
+		$image = new ImageExtImage($attr, $this);
+		$image->execute();
+		return $image->toHTML();
+	}
+	
+	public function executePictures($value, $attr_template = null){
+		//TODO
+	}
+	
+	public function executeImages($value, $attr_template = null){
+		$value = $this->executeImageTag('imageext', $value, $attr_template);
 		if ( kirby()->option(ImageExt::CONFIG_PARAM_SUPPORT_TAG_IMAGE, 'false') === true ){
-			$value = $this->executeImages('image', $value, $attr_template);
+			$value = $this->executeImageTag('image', $value, $attr_template);
 		}
-		
 		return $value;
 	}
 	
-	protected function executeImages($tag, $value, $attr_template = null){
+	public function executeGalleries($value, $attr_template = null){
+		$value = $this->executeGalleryTag('imageext_gallery', $value);
+		if ( kirby()->option(ImageExt::CONFIG_PARAM_SUPPORT_TAG_GALLERY, 'false') === true ){
+			$value = $this->executeGalleryTag('image_gallery', $value);
+		}
+		return $value;
+	}
+	
+	protected function executeImageTag($tag, $value, $attr_template = null){
 		$offset = 0;
 		
 		while ( ($block = WebHelper::getblock($tag, $value, $offset)) !== false ) {
@@ -322,10 +337,10 @@ class ImageExt {
 			
 			// Generate Attributes
 			$attr = $this->generateAttr($tag, $block, $attr_template);
-			
+				
 			// Generate content
-			$image = new ImageExtImage($attr);
-			$image->executeFunctions();
+			$image = new ImageExtImage($attr, $this);
+			$image->execute();
 			$content = $image->toHTML();
 			
 			// Replace placholder with final content
@@ -337,7 +352,7 @@ class ImageExt {
 		return $value;
 	}
 	
-	protected function executeGalleries($tag, $value, $attr_template = null){
+	protected function executeGalleryTag($tag, $value, $attr_template = null){
 		$offset = 0;
 		
 		while ( ($block = WebHelper::getblock($tag, $value, $offset)) !== false ) {
@@ -345,12 +360,13 @@ class ImageExt {
 			
 			// Generate Attributes
 			$attr = $this->generateAttr($tag, $block, $attr_template);
-
-			// Generate content
-			$attr[self::PARA_GALLERY_CONTENT] = $block[WebHelper::BLOCK_ARRAY_VALUE_CONTENT];
-			$attr[self::PARA_GALLERY_CONTENT] = $this->execute($attr[self::PARA_GALLERY_CONTENT], $attr);
 			
-			$imageGallery = new ImageExtGallery($attr);
+			$attr[self::PARA_GALLERY_CONTENT] = $block[WebHelper::BLOCK_ARRAY_VALUE_CONTENT];
+			if ( array_key_exists($tag, $block[WebHelper::BLOCK_ARRAY_VALUE_ATTRIBUTES]) )
+				$attr[self::PARA_IMG_SOURCE] = $block[WebHelper::BLOCK_ARRAY_VALUE_ATTRIBUTES][$tag];
+			
+			$imageGallery = new ImageExtGallery($attr, $this);
+			$imageGallery->execute();
 			$content = $imageGallery->toHTML();
 			
 			// Replace placholder with final content

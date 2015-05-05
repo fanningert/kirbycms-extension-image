@@ -7,7 +7,8 @@ require_once 'kirbycms-extension-image-lib.php';
 
 kirbytext::$pre[] = function($kirbytext, $value) {
 	$imageExt = new ImageExt($kirbytext->field->page);
-	$value = $imageExt->execute($value);
+	$value = $imageExt->executeGalleries($value);
+	$value = $imageExt->executeImages($value);
 
 	return $value;
 };

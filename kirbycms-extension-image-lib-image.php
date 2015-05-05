@@ -9,13 +9,15 @@ require_once 'kirbycms-extension-image-lib-gd.php';
 class ImageExtImage {
 	
 	protected $driver = null;
+	protected $imageExt = null;
 	protected $parameter = array();
 	
-	public function __construct($attr) {
+	public function __construct($attr, $imageExt) {
 		if ( !is_array($attr) )
 			throw new \Exception("Missing attribute array");
 		
 		$this->parameter = $attr;
+		$this->imageExt = $imageExt;
 		
 		// Create instance of driver class
 		$class_name = "ImageExtDriver".strtoupper($this->parameter[ImageExt::PARA_DRIVER]);
@@ -27,9 +29,13 @@ class ImageExtImage {
 		}
 	}
 	
-	public function executeFunctions(){
+	public function execute(){
+		$this->executeFunctions();
+	}
+	
+	protected function executeFunctions(){
 		// Check if file allready exist
-		if ( !$this->fileExist() )
+		if ( $this->fileExist() )
 			return $this;
 		
 		// Resize
@@ -149,24 +155,19 @@ class ImageExtImage {
 		
 		// Save new image
 		$this->saveFile();
-		
-		return $this;
 	}
 	
 	protected function saveFile(){		
 		@$this->driver->save( $this->parameter[ImageExt::PARA_IMG_OUTPUT_ROOT], $this->parameter[ImageExt::PARA_IMG_QUALITY] );
-		
-		return $this;
 	}
 	
 	public function fileExist(){
-		if ( $this->parameter[ImageExt::PARA_OVERWRITE] !== true )
+		if ( $this->parameter[ImageExt::PARA_OVERWRITE] === true )
 			return false;
-		
-		if ( file_exists( $this->parameter[ImageExt::PARA_IMG_OUTPUT_ROOT] ) and \f::modified( $this->parameter[ImageExt::PARA_IMG_OUTPUT_ROOT] ) >= $this->parameter[ImageExt::PARA_IMG_SOURCE_MODIFIED] )
+		if ( file_exists( $this->parameter[ImageExt::PARA_IMG_OUTPUT_ROOT] ) && \f::modified( $this->parameter[ImageExt::PARA_IMG_OUTPUT_ROOT] ) >= $this->parameter[ImageExt::PARA_IMG_SOURCE_MODIFIED] )
 			return true;
-		else
-			return false;
+		
+		return false;
 	}
 	
 	public function toHTML(){
