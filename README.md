@@ -54,10 +54,6 @@ Delete following files and then use the install instruction.
 * {kirby-install}/site/tags/image.php
 * {kirby-install}/site/plugins/image_helper.php
 
-## Documentation
-
-Look at the GitHub Wiki.
-
 ## ToDos
 
 * Add water stamp support (`kirby.extension.imageext.watermark`) or you can use the overlay filter (`overlay`) to overlay the image with a other image
@@ -66,40 +62,114 @@ Look at the GitHub Wiki.
 * Upscale support
 * Reactivate the support for caption field as image title
 * Default profile parameter `kirby.extension.imageext.default_profile`
+* Performance optimizing
 * Documentation, Wiki ...
 
-## Changes
+## Documentation
 
-### 0.9
+### Kirby configuration values
 
-* Complete new written (integrate support for complex image tags like `picture`)
-* New project structure for easier integration and update via git
-* Default tags are `imageext` and `imageext_gallery`, but you can reactivate the support for the other tags (`kirby.extension.imageext.support.tag.image`, `kirby.extension.imageext.support.tag.image_gallery`)
-* Attribute `resize` is deprecated (currently it is working), please use in the future `mode`.
-* Add new Filter (`brightness`, `contrast`, `colorize`, `edges`, `emboss`, `invert`, `opacity`, `sepia`, `sketch`, `smooth`, `pixelate`)
-* Add new config parameter for gallery and Javascript zoom libraries
-* Add image profile support
-* Currently only support for GD-Library is included. ImageMagick support will come in a later release.
+| Kirby option | Default | Values | Description |
+| ------------ | ------- | ------ | ----------- |
+| `kirby.extension.imageext.driver` | 'gd' | 'gd','im' | Used driver for image manipulation |
+| `kirby.extension.imageext.support.tag.image` | false | true/false | Activate/Deactivate the tag `image` |
+| `kirby.extension.imageext.support.tag.image_gallery` | false | true/false | Activate/Deactivate the tag `image_gallery` |
+| `kirby.extension.imageext.profiles` | false | {array} | Array of profiles |
+| `kirby.extension.imageext.default_profile` | "none" | {string} | (not implemented) Default used profile for image manipulation |
+| `kirby.extension.imageext.watermark` | false | false/{string} | (not implemented) |
+| `kirby.extension.imageext.width` | false | {number} | Image width for the resize methode |
+| `kirby.extension.imageext.height` | false | {number} | Image height for the resize methode |
+| `kirby.extension.imageext.quality` | 90 | {number 0-100} | Output quality for the created image |
+| `kirby.extension.imageext.caption_field` | false | false/{string} | File field which is used for the caption text |
+| `kirby.extension.imageext.caption_top` | false | true/false | Position of the caption, top or bottom of the image |
+| `kirby.extension.imageext.linkclass` | 'image-link' | {string} | Class for the link element |
+| `kirby.extension.imageext.imgclass` | 'image' | {string} | Class for the img element |
+| `kirby.extension.imageext.figureclass` | 'image-figure' | {string} | Class for the figure element |
+| `kirby.extension.imageext.gallery.class` | 'image-gallery' | {string} | Class for the gallery element |
+| `kirby.extension.imageext.gallery.prefix` | 'gallery-' | {string} |  |
+| `kirby.extension.imageext.gallery.link.class` | 'fancybox' | {string} |  |
+| `kirby.extension.imageext.gallery.link.attr` | 'rel' | {string} |  |
+| `kirby.extension.imageext.target` | false | false/{string} | Same effect like the html target attribute |
 
-### 0.7
+### KirbyTag attributes
 
-* Add a new KirbyText tag to insert a gallery, with the same function like from the image KirbyText tag. (Initial and not complete)
+#### Image
 
-### 0.6
+| Option | Default | Values | Description |
+| ------ | ------- | ------ | ----------- |
+| driver | | | |
+| profile | | | |
+| caption_text | | | |
+| caption_class | | | |
+| caption_top | | | |
+| caption_field | | | |
+| link_class |  | {string} | Class for the link element |
+| link_target | | | |
+| link_rel | | | |
+| link_title | | | |
+| link_url | | | |
+| image_source | | | |
+| image_class |  | {string} | Class for the img element |
+| image_alt | | | |
+| image_title | | | |
+| image_width |  | {number} | Image width for the resize methode |
+| image_height |  | {number} | Image height for the resize methode |
+| image_left | | | |
+| image_top | | | |
+| image_quality | 90 | {number 0=>100} | |
+| mode | none | none/resize/crop | |
+| upscale | false | true/false | |
+| overwrite | false | true/false | |
+| filter_blur | false | true/false/{number >0} | true = 1 pass |
+| filter_grayscale | false | true/false/{number 0=>100} | true = 100, when number is used is the value of opacity |
+| filter_brightness | false | false/{numerb -255=>255} | |
+| filter_contrast | false | false/{numerb -100=>100} | |
+| filter_colorize | false | | |
+| filter_edges | false | true/false | |
+| filter_emboss | false | true/false | |
+| filter_invert | false | true/false | |
+| filter_opacity | false | false/{number 0=>100} | |
+| filter_sepia | false | true/false | |
+| filter_sketch | false | true/false | |
+| filter_smooth | false | false/{numerb -10=>10} | |
+| filter_pixelate | false | false/{number >0} | |
+| filter_overlay | false | | |
+| imgclass | | | view `image_class` |
+| alt | | | view `image_alt` |
+| title | | | view `` |
+| width | | | view `image_width` |
+| height | | | view `image_height` |
+| left | | | view `image_left` |
+| top | | | view `image_top` |
+| quality | | | view `image_quality` |
+| caption | | | view `caption_text` |
+| class | | | view `caption_class` |
+| blur | | | view `filter_blur` |
+| linkclass | | | view `link_class` |
+| link | | | view `link_url` |
+| target | | | view `link_target` |
+| grayscale | | | view `filter_grayscale` |
+| brightness | | | view `filter_brightness` |
+| contrast | | | view `filter_contrast` |
+| colorize | | | view `filter_colorize` |
+| edges | | | view `filter_edges` |
+| emboss | | | view `filter_emboss` |
+| invert | | | view `filter_invert` |
+| opacity | | | view `filter_opacity` |
+| sepia | | | view `filter_sepia` |
+| sketch | | | view `filter_sketch` |
+| smooth | | | view `filter_smooth` |
+| pixelate | | | view `filter_picelate` |  
+| overlay | | | view `filter_overlay` |
+| resize | | | (deprecated) view `mode` |
+| text | | | (deprecated) view `image_alt` |
+| popup | | | (deprecated) view `link_target` |
 
-* Option to disable `width` and `height` attribute. Good for responsive Layout design.
+#### Gallery
 
-### 0.5
+On the gallery tag can you use every attribute from the image tag and the following attributes.
 
-* Bugfix
-* Add the new config option 'kirbytext.image.caption_field'. With this config option you can define a custom file field, what will be read for the caption of an image. Only when the config parmeter 'kirbytext.image.caption' or the parameter `caption` is 'true'. When the config parameter is true, you can selectiv deactivate it for an image. Just set the parameter `caption` to 'false'. When you write a different text into the `caption` parameter, this will be used. 
+| Option | Default | Values | Description |
+| ------ | ------- | ------ | ----------- |
+| gallery | | | | 
 
-### 0.4
-
-* Move the logic into to a plugin (static method). So you can use the function every where in Kirby (template, other KirbyTag, ...)
-* Add many possible Kirby config options (I know this is not perfect, because I am using the kirby namespace. But when anyone have a idea for a better namespace. Please tell your idea. As ABAP developer I would change it to zkirbytext....)
-* Optimize the logic
-
-### 0.3
-
-* Initial version
