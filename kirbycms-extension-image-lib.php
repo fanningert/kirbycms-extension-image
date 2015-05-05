@@ -125,6 +125,7 @@ class ImageExt {
 	const PARA_LINK_TITLE = "link_title";
 	const PARA_LINK_URL = "link_url";
 	const PARA_IMG_SOURCE = "image_source";
+	const PARA_IMG_SOURCE_MODIFIED = "image_source_modified";
 	const PARA_IMG_CLASS = "image_class";
 	const PARA_IMG_ALT = "image_alt";
 	const PARA_IMG_TITLE = "image_title";
@@ -252,6 +253,7 @@ class ImageExt {
 		$this->default[self::PARA_LINK_TITLE] = false;
 		$this->default[self::PARA_LINK_URL] = false;
 		$this->default[self::PARA_IMG_SOURCE] = false;
+		$this->default[self::PARA_IMG_SOURCE_MODIFIED] = false;
 		$this->default[self::PARA_IMG_CLASS] = kirby()->option(self::CONFIG_PARAM_DEFAULT_CLASS_IMG, "image");
 		$this->default[self::PARA_IMG_ALT] = false;
 		$this->default[self::PARA_IMG_TITLE] = false;
@@ -324,7 +326,6 @@ class ImageExt {
 			// Generate content
 			$image = new ImageExtImage($attr);
 			$image->executeFunctions();
-			$image->saveFile();
 			$content = $image->toHTML();
 			
 			// Replace placholder with final content
@@ -393,6 +394,7 @@ class ImageExt {
 			$source = ( is_object( $source ) )? $source : $this->page->file ( $source );
 			if ( $source ) {
 				$attr[self::PARA_IMG_SOURCE] = $source->filename();
+				$attr[self::PARA_IMG_SOURCE_MODIFIED] = $source->modified();
 				$attr[self::PARA_IMG_EXTENSION] = $source->extension();
 				$attr[self::PARA_IMG_OUTPUT_FILENAME] = \str::template($attr[self::PARA_IMG_OUTPUT_FILENAME], array(
 						'extension'    => $source->extension(),

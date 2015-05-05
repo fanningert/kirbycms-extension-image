@@ -28,6 +28,10 @@ class ImageExtImage {
 	}
 	
 	public function executeFunctions(){
+		// Check if file allready exist
+		if ( !$this->fileExist() )
+			return $this;
+		
 		// Resize
 		if ( $this->parameter[ImageExt::PARA_MODE] === ImageExt::MODE_RESIZE ) {
 			$upscale = $this->parameter[ImageExt::PARA_UPSCALE];
@@ -143,13 +147,26 @@ class ImageExtImage {
 			}
 		}
 		
+		// Save new image
+		$this->saveFile();
+		
 		return $this;
 	}
 	
-	public function saveFile(){
+	protected function saveFile(){		
 		@$this->driver->save( $this->parameter[ImageExt::PARA_IMG_OUTPUT_ROOT], $this->parameter[ImageExt::PARA_IMG_QUALITY] );
 		
 		return $this;
+	}
+	
+	public function fileExist(){
+		if ( $this->parameter[ImageExt::PARA_OVERWRITE] !== true )
+			return false;
+		
+		if ( file_exists( $this->parameter[ImageExt::PARA_IMG_OUTPUT_ROOT] ) and \f::modified( $this->parameter[ImageExt::PARA_IMG_OUTPUT_ROOT] ) >= $this->parameter[ImageExt::PARA_IMG_SOURCE_MODIFIED] )
+			return true;
+		else
+			return false;
 	}
 	
 	public function toHTML(){
