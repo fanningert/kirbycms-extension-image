@@ -58,7 +58,6 @@ Delete following files and then use the install instruction.
 
 * Add water stamp support (`kirby.extension.imageext.watermark`) or you can use the overlay filter (`overlay`) to overlay the image with a other image
 * Add ImageMagick support
-* Reactivate the support for the simple gallery tag
 * Upscale support
 * Reactivate the support for caption field as image title
 * Default profile parameter `kirby.extension.imageext.default_profile`
@@ -98,7 +97,7 @@ Delete following files and then use the install instruction.
 
 | Option | Default | Values | Description |
 | ------ | ------- | ------ | ----------- |
-| driver | see `kirby.extension.imageext.driver` | {string} | You can define the used converter class. |
+| driver | `gd` | {string} | You can define the used converter class. see `kirby.extension.imageext.driver` |
 | profile | `none` | {string} | |
 | caption_text | false | false/{string} | |
 | caption_class | `image-figure` | {string} | |

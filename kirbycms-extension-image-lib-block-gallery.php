@@ -23,12 +23,21 @@ class ImageExtGallery extends ImageExtObject {
 		
 		// Image bearbeiten die über das Gallery-Element geliefert werden.
 		if ( array_key_exists(self::PARA_IMG_SOURCE, $this->data[self::ARRAY_ATTR]) && $this->data[self::ARRAY_ATTR][self::PARA_IMG_SOURCE] !== false && !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_SOURCE]) ) {
-			$images = explode(",", $this->data[self::ARRAY_ATTR][self::PARA_IMG_SOURCE]);
-			
-			foreach ( $images as $image ) {
-				$attr = array();
-				$attr[WebHelper::BLOCK_ARRAY_VALUE_ATTRIBUTES][self::PARA_IMG_SOURCE] = $image;
-				$this->data[ImageExtObject::ARRAY_IMAGES][] = $this->getImageArray(ImageExtObject::TAG_IMAGE, $attr, $this->data[self::ARRAY_ATTR]);
+			if ( $this->data[self::ARRAY_ATTR][self::PARA_IMG_SOURCE] === '*' ) {
+				$this->imageExt->getPage()->images();
+				foreach ( $this->imageExt->getPage()->images() as $image  ) {
+					$attr = array();
+					$attr[WebHelper::BLOCK_ARRAY_VALUE_ATTRIBUTES][self::PARA_IMG_SOURCE] = $image->filename();
+					$this->data[ImageExtObject::ARRAY_IMAGES][] = $this->getImageArray(ImageExtObject::TAG_IMAGE, $attr, $this->data[self::ARRAY_ATTR]);
+				}
+			}else{
+				$images = explode(",", $this->data[self::ARRAY_ATTR][self::PARA_IMG_SOURCE]);
+				
+				foreach ( $images as $image ) {
+					$attr = array();
+					$attr[WebHelper::BLOCK_ARRAY_VALUE_ATTRIBUTES][self::PARA_IMG_SOURCE] = $image;
+					$this->data[ImageExtObject::ARRAY_IMAGES][] = $this->getImageArray(ImageExtObject::TAG_IMAGE, $attr, $this->data[self::ARRAY_ATTR]);
+				}
 			}
 		}
 	}

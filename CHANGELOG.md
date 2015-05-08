@@ -4,6 +4,7 @@
 * Moved Changelog from README.md to CHANGELOG.md
 * Bugfix: #8 ImageExt create on every request for a image, a new image
 * Support javascript zoom gallery feature
+* Reactivate the support for the simple gallery tag
 
 ### 0.9
 
