@@ -71,6 +71,7 @@ Delete following files and then use the install instruction.
 
 | Kirby option | Default | Values | Description |
 | ------------ | ------- | ------ | ----------- |
+| `kirby.extension.imageext.debug` | false | true/false | Print the internal used array for debug |
 | `kirby.extension.imageext.driver` | 'gd' | 'gd','im' | Used driver for image manipulation |
 | `kirby.extension.imageext.support.tag.image` | false | true/false | Activate/Deactivate the tag `image` |
 | `kirby.extension.imageext.support.tag.image_gallery` | false | true/false | Activate/Deactivate the tag `image_gallery` |
@@ -97,25 +98,25 @@ Delete following files and then use the install instruction.
 
 | Option | Default | Values | Description |
 | ------ | ------- | ------ | ----------- |
-| driver | | | |
-| profile | | | |
-| caption_text | | | |
-| caption_class | | | |
-| caption_top | | | |
-| caption_field | | | |
-| link_class |  | {string} | Class for the link element |
-| link_target | | | |
-| link_rel | | | |
-| link_title | | | |
-| link_url | | | |
-| image_source | | | |
-| image_class |  | {string} | Class for the img element |
-| image_alt | | | |
-| image_title | | | |
-| image_width |  | {number} | Image width for the resize methode |
-| image_height |  | {number} | Image height for the resize methode |
-| image_left | | | |
-| image_top | | | |
+| driver | see `kirby.extension.imageext.driver` | {string} | You can define the used converter class. |
+| profile | `none` | {string} | |
+| caption_text | false | false/{string} | |
+| caption_class | `image-figure` | {string} | |
+| caption_top | false | true/false | |
+| caption_field | false | false/{string} | |
+| link_class | `image-link` | {string} | Class for the link element |
+| link_target | false | false/{string} | |
+| link_rel | false | | |
+| link_title | false | | |
+| link_url | false | | |
+| image_source | false | false/{string} | |
+| image_class | `image` | {string} | Class for the img element |
+| image_alt | false | | |
+| image_title | false | | |
+| image_width | false | false/{number} | Image width for the resize methode |
+| image_height | false | false/{number} | Image height for the resize methode |
+| image_left | false | | |
+| image_top | false | | |
 | image_quality | 90 | {number 0=>100} | |
 | mode | none | none/resize/crop | |
 | upscale | false | true/false | |
@@ -171,5 +172,64 @@ On the gallery tag can you use every attribute from the image tag and the follow
 
 | Option | Default | Values | Description |
 | ------ | ------- | ------ | ----------- |
-| gallery | | | | 
+| gallery | false | false/{string} | It is used as suffix for the gallery-ID. When active it will be automatic create a link to the original image. So you can use a javascript zoom library. | 
 
+## Examples
+
+### Simple image
+
+```
+(imageext: image.jpg [attr_name: attr_value])
+```
+
+*Output:*
+```html
+<img src="image01.jpg" class="image">
+```
+
+### Complex image (TODO: not working at the moment)
+
+```
+(image: image01.jpg [attr_name: attr_value])
+  (srcset: image01.webp [type: {mimetype}] [media: {mediaquery}] [attr_name: attr_value])
+(/image)
+```
+
+*Output:*
+```html
+<picture>
+  <source srcset="image01.webp" type="image/webp">
+  <img src="image01.jpg" class="image">
+</picture>
+```
+
+### Simple gallery
+
+```
+(image_gallery: image01.jpg,image02.jpg,image03.jpg [attr_name: attr_value])
+```
+
+### Compley gallery
+
+```
+(image_gallery [attr_name: attr_value] gallery: 1)
+  (image: dsc00439.jpg [attr_name: attr_value])
+  (image: dsc00439.png [attr_name: attr_value])
+(/image_gallery)
+```
+
+*Output:*
+```html
+<div class="image-gallery">
+  <figure class="image-figure figcaption-bottom">
+    <a href="http://{server}/{content-url}/dsc00439.jpg" class="image-link fancybox" rel="gallery-1">
+      <img src="http://{server}/thumbs/dsc00439-2789dbdbbf034039f537d46f8ecb623c.jpg" class="image">
+    </a>
+  </figure>
+  <figure class="image-figure figcaption-bottom">
+    <a href="http://{server}/{content-url}/dsc00439.png" class="image-link fancybox" rel="gallery-1">
+      <img src="http://{server}/thumbs/dsc00439-9c18f1a4d771b71c6b82d2d7f584c367.png" class="image">
+    </a>
+  </figure>
+</div>
+```

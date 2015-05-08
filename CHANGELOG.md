@@ -3,6 +3,7 @@
 * Moved documentation from GitHub wiki to README.md
 * Moved Changelog from README.md to CHANGELOG.md
 * Bugfix: #8 ImageExt create on every request for a image, a new image
+* Support javascript zoom gallery feature
 
 ### 0.9
 
