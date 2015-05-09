@@ -1,3 +1,8 @@
+### 0.9.2
+
+* Bugfixes
+* Add ImageExt::getThumb method to easy create images
+
 ### 0.9.1
 
 * Moved documentation from GitHub wiki to README.md

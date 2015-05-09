@@ -185,15 +185,22 @@ class ImageExtObject {
 				break;
 		}
 		
-		$this->data[ImageExtObject::ARRAY_ATTR] = $this->convertAndMergeAttributes( $tag, $block[WebHelper::BLOCK_ARRAY_VALUE_ATTRIBUTES], $attr_template );
+		//Default attributes
+		if ( is_array($block) && array_key_exists(WebHelper::BLOCK_ARRAY_VALUE_ATTRIBUTES, $block) )
+			$this->data[self::ARRAY_ATTR] = $this->convertAndMergeAttributes( $tag, $block[WebHelper::BLOCK_ARRAY_VALUE_ATTRIBUTES], $attr_template );
+		else 
+			$this->data[self::ARRAY_ATTR] = $this->convertAndMergeAttributes( $tag, null, $attr_template );
 		
 		// Get image data and generate thumb file name
 	}
 	
-  protected function convertAndMergeAttributes($tag, array $attr, array $attr_template = null){
+  protected function convertAndMergeAttributes($tag, array $attr = null, array $attr_template = null){
 		$attr_result = array();
-		//Default attributes
-		$attr_result = $this->imageExt->getDefaults();
+		
+		if ( array_key_exists( self::ARRAY_ATTR, $this->data) )
+			$attr_result = array_merge($this->imageExt->getDefaults(), $this->data[self::ARRAY_ATTR]);
+		else
+			$attr_result = $this->imageExt->getDefaults();
 		
 		if ( is_array($attr_template) ) {
 			foreach ( $attr_template as $key => $value ) {
@@ -204,7 +211,7 @@ class ImageExtObject {
 		
 		// Profile attributes
 		$profiles = $this->imageExt->getProfiles();
-		if ( array_key_exists( self::PARA_PROFILE, $attr) === true ) {
+		if ( is_array( $attr ) && array_key_exists( self::PARA_PROFILE, $attr) === true ) {
 			$profile = $attr[self::PARA_PROFILE];
 			if ( is_array( $profiles ) && array_key_exists($profile, $profiles) ){
 				foreach ( $this->imageExt->getProfiles()[ $attr[self::PARA_PROFILE] ] as $key => $value ) {
@@ -218,21 +225,23 @@ class ImageExtObject {
 		}
 		
 		// Set the other attributes
-		foreach($attr as $key => $value){
-			if ( array_key_exists($key, $this->para_mapping) )
-				$key = $this->para_mapping[$key];
+		if ( is_array($attr) ) {
+			foreach($attr as $key => $value){
+				if ( array_key_exists($key, $this->para_mapping) )
+					$key = $this->para_mapping[$key];
+				
+				if ( array_key_exists($key, $attr_result) )
+					$attr_result[$key] = $this->checkValue( $key, $value );
+			}
 			
-			if ( array_key_exists($key, $attr_result) )
-				$attr_result[$key] = $this->checkValue( $key, $value );
+			if ( array_key_exists($tag, $attr) ) {
+				$attr_result[self::PARA_IMG_SOURCE] = $attr[$tag];
+			}
 		}
 		
 		// Convert attributes to internal format
 		$attr_result[self::PARA_PAGE_URL] = $this->imageExt->getPage()->url();
 		$attr_result[self::PARA_PAGE_ROOT] = $this->imageExt->getPage()->root();
-		
-		if ( array_key_exists($tag, $attr) ) {
-			$attr_result[self::PARA_IMG_SOURCE] = $attr[$tag];
-		}
 		
 		return $attr_result;
 	}

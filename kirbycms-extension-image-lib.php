@@ -189,7 +189,7 @@ class ImageExt {
 		return $this->page;
 	}
 	
-	protected function isDebug(){
+	public function isDebug(){
 		return kirby()->option(self::CONFIG_PARAM_DEBUG, false);
 	}
 	
@@ -236,7 +236,7 @@ class ImageExt {
 			switch ($tag) {
 				case ImageExtObject::TAG_IMAGEEXT_GALLERY:
 				case ImageExtObject::TAG_IMAGE_GALLERY:
-					$gallery = new ImageExtGallery( $this, $attr_template );
+					$gallery = new ImageExtGallery( $this );
 					$gallery->parse( $tag, $block, $attr_template );
 					if ( $this->isDebug() )
 						$content = $gallery->getDebug();
@@ -245,7 +245,7 @@ class ImageExt {
 					break;
 				case ImageExtObject::TAG_IMAGEEXT:
 				case ImageExtObject::TAG_IMAGE:
-					$image = new ImageExtImage( $this, $attr_template );
+					$image = new ImageExtImage( $this );
 					$image->parse( $tag, $block, $attr_template );	
 					$image->parseFileAttributes();
 					if ( $this->isDebug() ) {
@@ -264,11 +264,23 @@ class ImageExt {
 		return $value;
 	}
 	
-	public static function getTumb($page, $attr){
+	public static function getTumb($page, $attr = array()){
+		if ( !is_array($attr) && count($attr) == 0 )
+			return "";
 		
+		$imageExt = new ImageExt($page);
+		$imageExtImage = new ImageExtImage( $imageExt );
+		$imageExtImage->parse( ImageExtImage::TAG_IMAGE, array(), $attr );
+		$imageExtImage->parseFileAttributes();
+		if ( $imageExt->isDebug() ) {
+			return $imageExtImage->getDebug();
+		} else {
+			$imageExtImage->generate();
+			return $imageExtImage->toHTML();
+		}
 	}
 	
-	public static function getGallery($page, $attr){
+	public static function getGallery($page, $attr = array()){
 		
 	}
 }
