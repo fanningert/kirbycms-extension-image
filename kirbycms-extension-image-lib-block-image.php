@@ -258,7 +258,7 @@ class ImageExtImage extends ImageExtObject {
 	}
 	
 	protected function saveFile(){
-		@$this->driver->save( $this->data[self::ARRAY_ATTR][self::PARA_IMG_OUTPUT_ROOT], $this->data[self::ARRAY_ATTR][self::PARA_IMG_QUALITY] );
+		$this->driver->save( $this->data[self::ARRAY_ATTR][self::PARA_IMG_OUTPUT_ROOT], $this->data[self::ARRAY_ATTR][self::PARA_IMG_QUALITY] );
 	}
 	
 	public function fileExist(){
