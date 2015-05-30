@@ -1,6 +1,7 @@
 # 0.9.3
 
 * Bugfix: Correct blur bug
+* Bugfix: Upscale issue
 
 # 0.9.2
 
