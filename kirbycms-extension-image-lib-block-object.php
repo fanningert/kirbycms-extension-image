@@ -86,78 +86,78 @@ class ImageExtObject {
 	const PARA_FILTER_OVERLAY = "filter_overlay";
 	
 	protected  $para_mapping = [
-			ImageExt::ATTR_DRIVER => self::PARA_DRIVER,
-			ImageExt::ATTR_PROFILE => self::PARA_PROFILE,
-			ImageExt::ATTR_FIGURE_TEXT => self::PARA_FIGURE_CAPTION,
-			ImageExt::ATTR_FIGURE_CLASS => self::PARA_FIGURE_CLASS,
-			ImageExt::ATTR_FIGURE_CAPTION_TOP => self::PARA_FIGURE_CAPTION_TOP,
-			ImageExt::ATTR_FIGURE_CAPTION_FIELD => self::PARA_FIGURE_CAPTION_FIELD,
-			ImageExt::ATTR_LINK_CLASS => self::PARA_LINK_CLASS,
-			ImageExt::ATTR_LINK_TARGET => self::PARA_LINK_TARGET,
-			ImageExt::ATTR_LINK_REL => self::PARA_LINK_REL,
-			ImageExt::ATTR_LINK_TITLE => self::PARA_LINK_TITLE,
-			ImageExt::ATTR_LINK_URL => self::PARA_LINK_URL,
-			ImageExt::ATTR_IMG_SRC => self::PARA_IMG_SOURCE,
-			ImageExt::ATTR_IMG_CLASS => self::PARA_IMG_CLASS,
-			ImageExt::ATTR_IMG_ALT => self::PARA_IMG_ALT,
-			ImageExt::ATTR_IMG_TITLE => self::PARA_IMG_TITLE,
-			ImageExt::ATTR_IMG_WIDTH => self::PARA_IMG_WIDTH,
-			ImageExt::ATTR_IMG_HEIGHT => self::PARA_IMG_HEIGHT,
-			ImageExt::ATTR_IMG_CROP_LEFT => self::PARA_IMG_CROP_LEFT,
-			ImageExt::ATTR_IMG_CROP_TOP => self::PARA_IMG_CROP_TOP,
-			ImageExt::ATTR_IMG_QUALITY => self::PARA_IMG_QUALITY,
-			ImageExt::ATTR_IMG_MEDIAQUERY => self::PARA_IMG_MEDIAQUERY,
-			ImageExt::ATTR_IMG_MIMETYPE => self::PARA_IMG_MIMETYPE,
-			ImageExt::ATTR_GALLERY_ID => self::PARA_GALLERY_ID,
-			ImageExt::ATTR_MODE => self::PARA_MODE,
-			ImageExt::ATTR_UPSCALE => self::PARA_UPSCALE,
-			ImageExt::ATTR_OVERWRITE => self::PARA_OVERWRITE,
-			ImageExt::ATTR_FILTER_BLUR => self::PARA_FILTER_BLUR,
-			ImageExt::ATTR_FILTER_GRAYSCALE => self::PARA_FILTER_GRAYSCALE,
-			ImageExt::ATTR_FILTER_BRIGHTNESS => self::PARA_FILTER_BRIGHTNESS,
-			ImageExt::ATTR_FILTER_CONTRAST => self::PARA_FILTER_CONTRAST,
-			ImageExt::ATTR_FILTER_COLORIZE => self::PARA_FILTER_COLORIZE,
-			ImageExt::ATTR_FILTER_EDGES => self::PARA_FILTER_EDGES,
-			ImageExt::ATTR_FILTER_EMBOSS => self::PARA_FILTER_EMBOSS,
-			ImageExt::ATTR_FILTER_INVERT => self::PARA_FILTER_INVERT,
-			ImageExt::ATTR_FILTER_OPACITY => self::PARA_FILTER_OPACITY,
-			ImageExt::ATTR_FILTER_SEPIA => self::PARA_FILTER_SEPIA,
-			ImageExt::ATTR_FILTER_SKETCH => self::PARA_FILTER_SKETCH,
-			ImageExt::ATTR_FILTER_SMOOTH => self::PARA_FILTER_SMOOTH,
-			ImageExt::ATTR_FILTER_PIXELATE => self::PARA_FILTER_PIXELATE,
-			ImageExt::ATTR_FILTER_OVERLAY => self::PARA_FILTER_OVERLAY,
-			ImageExt::ATTR_SUPPORT_IMG_CLASS => self::PARA_IMG_CLASS,
-			ImageExt::ATTR_SUPPORT_IMG_ALT => self::PARA_IMG_ALT,
-			ImageExt::ATTR_SUPPORT_IMG_TITLE => self::PARA_IMG_TITLE,
-			ImageExt::ATTR_SUPPORT_IMG_WIDTH => self::PARA_IMG_WIDTH,
-			ImageExt::ATTR_SUPPORT_IMG_HEIGHT => self::PARA_IMG_HEIGHT,
-			ImageExt::ATTR_SUPPORT_IMG_CROP_LEFT => self::PARA_IMG_CROP_LEFT,
-			ImageExt::ATTR_SUPPORT_IMG_CROP_TOP => self::PARA_IMG_CROP_TOP,
-			ImageExt::ATTR_SUPPORT_IMG_QUALITY => self::PARA_IMG_QUALITY,
-			ImageExt::ATTR_SUPPORT_IMG_MEDIAQUERY => self::PARA_IMG_MEDIAQUERY,
-			ImageExt::ATTR_SUPPORT_IMG_MIMETYPE => self::PARA_IMG_MIMETYPE,
-			ImageExt::ATTR_SUPPORT_FIGURE_TEXT => self::PARA_FIGURE_CAPTION,
-			ImageExt::ATTR_SUPPORT_FIGURE_CLASS => self::PARA_FIGURE_CLASS,
-			ImageExt::ATTR_SUPPORT_FILTER_BLUR => self::PARA_FILTER_BLUR,
-			ImageExt::ATTR_SUPPORT_LINK_CLASS => self::PARA_LINK_CLASS,
-			ImageExt::ATTR_SUPPORT_LINK_URL => self::PARA_LINK_URL,
-			ImageExt::ATTR_SUPPORT_LINK_TARGET => self::PARA_LINK_TARGET,
-			ImageExt::ATTR_SUPPORT_FILTER_GRAYSCALE => self::PARA_FILTER_GRAYSCALE,
-			ImageExt::ATTR_SUPPORT_FILTER_BRIGHTNESS => self::PARA_FILTER_BRIGHTNESS,
-			ImageExt::ATTR_SUPPORT_FILTER_CONTRAST => self::PARA_FILTER_CONTRAST,
-			ImageExt::ATTR_SUPPORT_FILTER_COLORIZE => self::PARA_FILTER_COLORIZE,
-			ImageExt::ATTR_SUPPORT_FILTER_EDGES => self::PARA_FILTER_EDGES,
-			ImageExt::ATTR_SUPPORT_FILTER_EMBOSS => self::PARA_FILTER_EMBOSS,
-			ImageExt::ATTR_SUPPORT_FILTER_INVERT => self::PARA_FILTER_INVERT,
-			ImageExt::ATTR_SUPPORT_FILTER_OPACITY => self::PARA_FILTER_OPACITY,
-			ImageExt::ATTR_SUPPORT_FILTER_SEPIA => self::PARA_FILTER_SEPIA,
-			ImageExt::ATTR_SUPPORT_FILTER_SKETCH => self::PARA_FILTER_SKETCH,
-			ImageExt::ATTR_SUPPORT_FILTER_SMOOTH => self::PARA_FILTER_SMOOTH,
-			ImageExt::ATTR_SUPPORT_FILTER_PIXELATE => self::PARA_FILTER_PIXELATE,
-			ImageExt::ATTR_SUPPORT_FILTER_OVERLAY => self::PARA_FILTER_OVERLAY,
-			ImageExt::ATTR_DEPRECATED_MODE => self::PARA_MODE,
-			ImageExt::ATTR_DEPRECATED_IMG_TEXT => self::PARA_IMG_TITLE,
-			ImageExt::ATTR_DEPRECATED_LINK_TARGET => self::PARA_LINK_TARGET
+		ImageExt::ATTR_DRIVER => self::PARA_DRIVER,
+		ImageExt::ATTR_PROFILE => self::PARA_PROFILE,
+		ImageExt::ATTR_FIGURE_TEXT => self::PARA_FIGURE_CAPTION,
+		ImageExt::ATTR_FIGURE_CLASS => self::PARA_FIGURE_CLASS,
+		ImageExt::ATTR_FIGURE_CAPTION_TOP => self::PARA_FIGURE_CAPTION_TOP,
+		ImageExt::ATTR_FIGURE_CAPTION_FIELD => self::PARA_FIGURE_CAPTION_FIELD,
+		ImageExt::ATTR_LINK_CLASS => self::PARA_LINK_CLASS,
+		ImageExt::ATTR_LINK_TARGET => self::PARA_LINK_TARGET,
+		ImageExt::ATTR_LINK_REL => self::PARA_LINK_REL,
+		ImageExt::ATTR_LINK_TITLE => self::PARA_LINK_TITLE,
+		ImageExt::ATTR_LINK_URL => self::PARA_LINK_URL,
+		ImageExt::ATTR_IMG_SRC => self::PARA_IMG_SOURCE,
+		ImageExt::ATTR_IMG_CLASS => self::PARA_IMG_CLASS,
+		ImageExt::ATTR_IMG_ALT => self::PARA_IMG_ALT,
+		ImageExt::ATTR_IMG_TITLE => self::PARA_IMG_TITLE,
+		ImageExt::ATTR_IMG_WIDTH => self::PARA_IMG_WIDTH,
+		ImageExt::ATTR_IMG_HEIGHT => self::PARA_IMG_HEIGHT,
+		ImageExt::ATTR_IMG_CROP_LEFT => self::PARA_IMG_CROP_LEFT,
+		ImageExt::ATTR_IMG_CROP_TOP => self::PARA_IMG_CROP_TOP,
+		ImageExt::ATTR_IMG_QUALITY => self::PARA_IMG_QUALITY,
+		ImageExt::ATTR_IMG_MEDIAQUERY => self::PARA_IMG_MEDIAQUERY,
+		ImageExt::ATTR_IMG_MIMETYPE => self::PARA_IMG_MIMETYPE,
+		ImageExt::ATTR_GALLERY_ID => self::PARA_GALLERY_ID,
+		ImageExt::ATTR_MODE => self::PARA_MODE,
+		ImageExt::ATTR_UPSCALE => self::PARA_UPSCALE,
+		ImageExt::ATTR_OVERWRITE => self::PARA_OVERWRITE,
+		ImageExt::ATTR_FILTER_BLUR => self::PARA_FILTER_BLUR,
+		ImageExt::ATTR_FILTER_GRAYSCALE => self::PARA_FILTER_GRAYSCALE,
+		ImageExt::ATTR_FILTER_BRIGHTNESS => self::PARA_FILTER_BRIGHTNESS,
+		ImageExt::ATTR_FILTER_CONTRAST => self::PARA_FILTER_CONTRAST,
+		ImageExt::ATTR_FILTER_COLORIZE => self::PARA_FILTER_COLORIZE,
+		ImageExt::ATTR_FILTER_EDGES => self::PARA_FILTER_EDGES,
+		ImageExt::ATTR_FILTER_EMBOSS => self::PARA_FILTER_EMBOSS,
+		ImageExt::ATTR_FILTER_INVERT => self::PARA_FILTER_INVERT,
+		ImageExt::ATTR_FILTER_OPACITY => self::PARA_FILTER_OPACITY,
+		ImageExt::ATTR_FILTER_SEPIA => self::PARA_FILTER_SEPIA,
+		ImageExt::ATTR_FILTER_SKETCH => self::PARA_FILTER_SKETCH,
+		ImageExt::ATTR_FILTER_SMOOTH => self::PARA_FILTER_SMOOTH,
+		ImageExt::ATTR_FILTER_PIXELATE => self::PARA_FILTER_PIXELATE,
+		ImageExt::ATTR_FILTER_OVERLAY => self::PARA_FILTER_OVERLAY,
+		ImageExt::ATTR_SUPPORT_IMG_CLASS => self::PARA_IMG_CLASS,
+		ImageExt::ATTR_SUPPORT_IMG_ALT => self::PARA_IMG_ALT,
+		ImageExt::ATTR_SUPPORT_IMG_TITLE => self::PARA_IMG_TITLE,
+		ImageExt::ATTR_SUPPORT_IMG_WIDTH => self::PARA_IMG_WIDTH,
+		ImageExt::ATTR_SUPPORT_IMG_HEIGHT => self::PARA_IMG_HEIGHT,
+		ImageExt::ATTR_SUPPORT_IMG_CROP_LEFT => self::PARA_IMG_CROP_LEFT,
+		ImageExt::ATTR_SUPPORT_IMG_CROP_TOP => self::PARA_IMG_CROP_TOP,
+		ImageExt::ATTR_SUPPORT_IMG_QUALITY => self::PARA_IMG_QUALITY,
+		ImageExt::ATTR_SUPPORT_IMG_MEDIAQUERY => self::PARA_IMG_MEDIAQUERY,
+		ImageExt::ATTR_SUPPORT_IMG_MIMETYPE => self::PARA_IMG_MIMETYPE,
+		ImageExt::ATTR_SUPPORT_FIGURE_TEXT => self::PARA_FIGURE_CAPTION,
+		ImageExt::ATTR_SUPPORT_FIGURE_CLASS => self::PARA_FIGURE_CLASS,
+		ImageExt::ATTR_SUPPORT_FILTER_BLUR => self::PARA_FILTER_BLUR,
+		ImageExt::ATTR_SUPPORT_LINK_CLASS => self::PARA_LINK_CLASS,
+		ImageExt::ATTR_SUPPORT_LINK_URL => self::PARA_LINK_URL,
+		ImageExt::ATTR_SUPPORT_LINK_TARGET => self::PARA_LINK_TARGET,
+		ImageExt::ATTR_SUPPORT_FILTER_GRAYSCALE => self::PARA_FILTER_GRAYSCALE,
+		ImageExt::ATTR_SUPPORT_FILTER_BRIGHTNESS => self::PARA_FILTER_BRIGHTNESS,
+		ImageExt::ATTR_SUPPORT_FILTER_CONTRAST => self::PARA_FILTER_CONTRAST,
+		ImageExt::ATTR_SUPPORT_FILTER_COLORIZE => self::PARA_FILTER_COLORIZE,
+		ImageExt::ATTR_SUPPORT_FILTER_EDGES => self::PARA_FILTER_EDGES,
+		ImageExt::ATTR_SUPPORT_FILTER_EMBOSS => self::PARA_FILTER_EMBOSS,
+		ImageExt::ATTR_SUPPORT_FILTER_INVERT => self::PARA_FILTER_INVERT,
+		ImageExt::ATTR_SUPPORT_FILTER_OPACITY => self::PARA_FILTER_OPACITY,
+		ImageExt::ATTR_SUPPORT_FILTER_SEPIA => self::PARA_FILTER_SEPIA,
+		ImageExt::ATTR_SUPPORT_FILTER_SKETCH => self::PARA_FILTER_SKETCH,
+		ImageExt::ATTR_SUPPORT_FILTER_SMOOTH => self::PARA_FILTER_SMOOTH,
+		ImageExt::ATTR_SUPPORT_FILTER_PIXELATE => self::PARA_FILTER_PIXELATE,
+		ImageExt::ATTR_SUPPORT_FILTER_OVERLAY => self::PARA_FILTER_OVERLAY,
+		ImageExt::ATTR_DEPRECATED_MODE => self::PARA_MODE,
+		ImageExt::ATTR_DEPRECATED_IMG_TEXT => self::PARA_IMG_TITLE,
+		ImageExt::ATTR_DEPRECATED_LINK_TARGET => self::PARA_LINK_TARGET
 	];
 	
 	protected $imageExt = null;
@@ -251,34 +251,38 @@ class ImageExtObject {
 			case self::PARA_FIGURE_CAPTION:
 				if ( is_bool( $value ) )
 					$value = $value;
-					elseif ( is_string( $value ) && ( $value === "true" || $value === "false" ) )
+				elseif ( is_string( $value ) && ( $value === "true" || $value === "false" ) )
 					$value = ($value === "true")? true : false;
-					elseif ( is_string( $value ) )
+				elseif ( is_string( $value ) )
 					$value = $value;
-					else
-						$value = false;
-					break;
+				else
+					$value = false;
+				break;
 			case self::PARA_FILTER_GRAYSCALE:
 			case self::PARA_FILTER_OPACITY:
 				if ( is_int($value) && $value >= 0 && $value <= 100 )
 					$value = $value;
-					elseif ( is_numeric($value) && intval($value) >= 0 && intval($value) <= 100 )
+				elseif ( is_numeric($value) && intval($value) >= 0 && intval($value) <= 100 )
 					$value = intval($value);
-					elseif ( $value === true || ( is_string($value) && strtolower($value) === "true" ) )
+				elseif ( $value === true || ( is_string($value) && strtolower($value) === "true" ) )
 					$value = 100;
-					else
-						$value = $this->default[$key];
-					break;
+				else
+					$value = $this->default[$key];
+				break;
 			case self::PARA_FILTER_COLORIZE:
 				break;
 			case self::PARA_FILTER_BLUR:
-				if ( is_string($value) )
+				if ( is_bool($value) )
+				  $value = ($value)? 1 : false;
+				elseif ( is_numeric($value) )
+				  $value = (intval($value) > 0)? intval($value) : false;
+				elseif ( is_string($value) )
 					$value = (strtolower($value) === "true")? 1 : false;
-					elseif ( $value === true || $value === false )
+				elseif ( $value === true || $value === false )
 					$value = ($value === true)? 1 : $value;
-					else
-						$value = $this->default[$key];
-					break;
+				else
+					$value = $this->default[$key];
+				break;
 			case self::PARA_UPSCALE:
 			case self::PARA_FILTER_EDGES:
 			case self::PARA_FILTER_EMBOSS:
@@ -287,61 +291,61 @@ class ImageExtObject {
 			case self::PARA_FILTER_SKETCH:
 				if ( is_string($value) )
 					$value = (strtolower($value) === "true")? true: false;
-					elseif ( $value === true || $value === false )
+				elseif ( $value === true || $value === false )
 					$value = $value;
-					else
-						$value = $this->default[$key];
-					break;
+				else
+					$value = $this->default[$key];
+				break;
 			case self::PARA_FILTER_CONTRAST:
 				if ( is_int($value) && $value >= -100 && $value <= 100 )
 					$value = $value;
-					elseif ( is_numeric($value) && intval($value) >= -100 && intval($value) <= 100 )
+				elseif ( is_numeric($value) && intval($value) >= -100 && intval($value) <= 100 )
 					$value = intval($value);
-					else
-						$value = $this->default[$key];
-					break;
+				else
+					$value = $this->default[$key];
+				break;
 			case self::PARA_FILTER_BRIGHTNESS:
 				if ( is_int($value) && $value >= -255 && $value <= 255 )
 					$value = $value;
-					elseif ( is_numeric($value) && intval($value) >= -255 && intval($value) <= 255 )
+				elseif ( is_numeric($value) && intval($value) >= -255 && intval($value) <= 255 )
 					$value = intval($value);
-					else
-						$value = $this->default[$key];
-					break;
+				else
+					$value = $this->default[$key];
+				break;
 			case self::PARA_FILTER_SMOOTH:
 				if ( is_int($value) && $value >= -10 && $value <= 10 )
 					$value = $value;
-					elseif ( is_numeric($value) && intval($value) >= -10 && intval($value) <= 10 )
+				elseif ( is_numeric($value) && intval($value) >= -10 && intval($value) <= 10 )
 					$value = intval($value);
-					else
-						$value = $this->default[$key];
-					break;
+				else
+					$value = $this->default[$key];
+				break;
 			case self::PARA_FILTER_PIXELATE:
 			case self::PARA_IMG_WIDTH:
 			case self::PARA_IMG_HEIGHT:
 				if ( is_int($value) && $value > 0 )
 					$value = $value;
-					elseif ( is_numeric($value) && intval($value) > 0 )
+				elseif ( is_numeric($value) && intval($value) > 0 )
 					$value = intval($value);
-					elseif ( $value === true || $value === false )
+				elseif ( $value === true || $value === false )
 					$value = $value;
-					else
-						$value = $this->default[$key];
-					break;
+				else
+					$value = $this->default[$key];
+				break;
 			case self::PARA_IMG_QUALITY:
 				if ( is_int($value) && $value >= 0 && $value <= 100 )
 					$value = $value;
-					elseif ( is_numeric($value) && intval($value) >= 0 && intval($value) <= 100 )
+				elseif ( is_numeric($value) && intval($value) >= 0 && intval($value) <= 100 )
 					$value = intval($value);
-					else
-						$value = $this->default[$key];
-					break;
+				else
+					$value = $this->default[$key];
+				break;
 			case self::PARA_LINK_URL:
 				// Check if it a file of the current page
 				if ( $this->imageExt->getPage()->file($value) )
 					$value = $this->imageExt->getPage()->file($value)->url();
-					$value = \Url($value);
-					break;
+				$value = \Url($value);
+				break;
 			case self::PARA_FILTER_OVERLAY:
 				break;
 		}
