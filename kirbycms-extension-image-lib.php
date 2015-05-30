@@ -259,6 +259,7 @@ class ImageExt {
 			
 			// Replace placholder with final content
 			$value = substr_replace($value, $content, $start, $length);
+			$offset = $start + strlen($content);
 		}
 		
 		return $value;

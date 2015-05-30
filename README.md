@@ -58,10 +58,8 @@ Delete following files and then use the install instruction.
 
 * Add water stamp support (`kirby.extension.imageext.watermark`) or you can use the overlay filter (`overlay`) to overlay the image with a other image
 * Add ImageMagick support
-* Upscale support
 * Reactivate the support for caption field as image title
 * Default profile parameter `kirby.extension.imageext.default_profile`
-* Performance optimizing
 * Documentation, Wiki ...
 
 ## Documentation
