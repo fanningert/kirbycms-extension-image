@@ -289,10 +289,10 @@ class ImageExtObject {
 			case self::PARA_FILTER_INVERT:
 			case self::PARA_FILTER_SEPIA:
 			case self::PARA_FILTER_SKETCH:
-				if ( is_string($value) )
+				if ( is_bool($value) )
+					return $value;
+				elseif ( is_string($value) )
 					$value = (strtolower($value) === "true")? true: false;
-				elseif ( $value === true || $value === false )
-					$value = $value;
 				else
 					$value = $this->default[$key];
 				break;
