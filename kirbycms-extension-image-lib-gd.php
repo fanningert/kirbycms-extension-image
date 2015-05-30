@@ -129,7 +129,7 @@ class ImageExtDriverGD extends ImageExtDriver {
 	}
 	
 	public function best_fit($max_width, $max_height, $upscale = false){
-		if ( $upscale !== false && ( $width >= $this->image_class->get_width() || $height >= $this->image_class->get_height() ) ){
+		if ( $upscale === false && ( $width >= $this->image_class->get_width() || $height >= $this->image_class->get_height() ) ){
 			return $this;
 		}
 		$this->image_class->best_fit($max_width, $max_height);
@@ -137,7 +137,7 @@ class ImageExtDriverGD extends ImageExtDriver {
 	}
 	
 	public function fit_to_height($height, $upscale = false){
-		if ( $upscale !== false && $height >= $this->image_class->get_height() ){
+		if ( $upscale === false && $height >= $this->image_class->get_height() ){
 			return $this;
 		}
 		$this->image_class->fit_to_height($height);
@@ -145,7 +145,7 @@ class ImageExtDriverGD extends ImageExtDriver {
 	}
 	
 	public function fit_to_width($width, $upscale = false){
-		if ( $upscale !== false && $width >= $this->image_class->get_width() ){
+		if ( $upscale === false && $width >= $this->image_class->get_width() ){
 			return $this;
 		}
 		$this->image_class->fit_to_width($width);
@@ -168,7 +168,7 @@ class ImageExtDriverGD extends ImageExtDriver {
 	}
 	
 	public function resize($width, $height, $upscale = false){
-		if ( $upscale !== false && ( $width >= $this->image_class->get_width() || $height >= $this->image_class->get_height() ) ){
+		if ( $upscale === false && ( $width >= $this->image_class->get_width() || $height >= $this->image_class->get_height() ) ){
 			return $this;
 		}
 		$this->image_class->resize($width, $height);
@@ -181,7 +181,7 @@ class ImageExtDriverGD extends ImageExtDriver {
 	}
 	
 	public function thumbnail($width, $height = null, $upscale = false){
-		if ( $upscale !== false && ( $width >= $this->image_class->get_width() || $height >= $this->image_class->get_height() ) ){
+		if ( $upscale === false && ( $width >= $this->image_class->get_width() || $height >= $this->image_class->get_height() ) ){
 			return $this;
 		}
 		$this->image_class->thumbnail($width, $height);
