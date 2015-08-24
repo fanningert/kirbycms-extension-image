@@ -85,7 +85,7 @@ class ImageExtObject {
 	const PARA_FILTER_PIXELATE = "filter_pixelate";
 	const PARA_FILTER_OVERLAY = "filter_overlay";
 	
-	protected  $para_mapping = [
+	protected  $para_mapping = array(
 		ImageExt::ATTR_DRIVER => self::PARA_DRIVER,
 		ImageExt::ATTR_PROFILE => self::PARA_PROFILE,
 		ImageExt::ATTR_FIGURE_TEXT => self::PARA_FIGURE_CAPTION,
@@ -158,7 +158,7 @@ class ImageExtObject {
 		ImageExt::ATTR_DEPRECATED_MODE => self::PARA_MODE,
 		ImageExt::ATTR_DEPRECATED_IMG_TEXT => self::PARA_IMG_TITLE,
 		ImageExt::ATTR_DEPRECATED_LINK_TARGET => self::PARA_LINK_TARGET
-	];
+	);
 	
 	protected $imageExt = null;
 	protected $data = array();
