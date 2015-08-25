@@ -214,7 +214,7 @@ class ImageExtObject {
 		if ( is_array( $attr ) && array_key_exists( self::PARA_PROFILE, $attr) === true ) {
 			$profile = $attr[self::PARA_PROFILE];
 			if ( is_array( $profiles ) && array_key_exists($profile, $profiles) ){
-				foreach ( $this->imageExt->getProfiles()[ $attr[self::PARA_PROFILE] ] as $key => $value ) {
+				foreach ( $profiles[ $attr[self::PARA_PROFILE] ] as $key => $value ) {
 					if ( array_key_exists($key, $this->para_mapping) )
 						$key = $this->para_mapping[$key];
 					
