@@ -71,12 +71,21 @@ class ImageExtGallery extends ImageExtObject {
 		foreach ( $this->data[self::ARRAY_IMAGES] as $image ){
 			$imageExt = new ImageExtImage($this->imageExt, $image);
 			$imageExt->generate();
+			$imageExt->optimizeOutput();
 			$content .= $imageExt->toHTML();
 		}	
-
-		$attr = array();
-		if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_GALLERY_CLASS]) )
-			$attr['class'] = $this->data[self::ARRAY_ATTR][self::PARA_GALLERY_CLASS];
-		return \Html::tag("div", $content, $attr);
+		
+		if( $this->data[self::ARRAY_ATTR][self::PARA_SNIPPET_GALLERY] !== false && file_exists( kirby()->roots->snippets ().'/'.$this->data[self::ARRAY_ATTR][self::PARA_SNIPPET_GALLERY].'.php' ) ){
+			$attr = array();
+			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_GALLERY_CLASS]) )
+				$attr['class'] = $this->data[self::ARRAY_ATTR][self::PARA_GALLERY_CLASS];
+			$attr['images'] = $content;
+			return ( string ) snippet( $this->data[self::ARRAY_ATTR][self::PARA_SNIPPET_GALLERY], array( 'data' => $attr), true );
+		}else{
+			$attr = array();
+			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_GALLERY_CLASS]) )
+				$attr['class'] = $this->data[self::ARRAY_ATTR][self::PARA_GALLERY_CLASS];
+			return \Html::tag("div", $content, $attr);
+		}
 	}
 }

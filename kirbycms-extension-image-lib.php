@@ -11,6 +11,8 @@ use at\fanninger\kirby\extension\webhelper\WebHelper;
 class ImageExt {
 	
 	const CONFIG_PARAM_DEBUG = "kirby.extension.imageext.debug";
+	const CONFIG_PARAM_SNIPPET_IMAGE = "kirby.extension.imageext.snippet.image";
+	const CONFIG_PARAM_SNIPPET_GALLERY = "kirby.extension.imageext.snippet.gallery";
 	const CONFIG_PARAM_DEFAULT_DRIVER = "kirby.extension.imageext.driver";
 	const CONFIG_PARAM_SUPPORT_TAG_IMAGE = "kirby.extension.imageext.support.tag.image";
 	const CONFIG_PARAM_SUPPORT_TAG_GALLERY = "kirby.extension.imageext.support.tag.image_gallery";
@@ -33,6 +35,8 @@ class ImageExt {
 
 	const ATTR_DRIVER = "driver";
 	const ATTR_PROFILE = "profile";
+	const ATTR_SNIPPET_IMAGE = "snippet_image";
+	const ATTR_SNIPPET_GALLERY = "snippet_gallery";
 	const ATTR_FIGURE_TEXT = "caption_text";
 	const ATTR_FIGURE_CLASS = "caption_class";
 	const ATTR_FIGURE_CAPTION_TOP = "caption_top";
@@ -120,6 +124,8 @@ class ImageExt {
 	protected function loadDefaults(){
 		$this->default[ImageExtObject::PARA_DRIVER] = kirby()->option(self::CONFIG_PARAM_DEFAULT_DRIVER, ImageExtObject::DRIVER_GD);
 		$this->default[ImageExtObject::PARA_PROFILE] = kirby()->option(self::CONFIG_PARAM_DEFAULT_PROFILE, ImageExtObject::PROFILE_NONE);
+		$this->default[ImageExtObject::PARA_SNIPPET_IMAGE] = kirby()->option(self::CONFIG_PARAM_SNIPPET_IMAGE, false);
+		$this->default[ImageExtObject::PARA_SNIPPET_GALLERY] = kirby()->option(self::CONFIG_PARAM_SNIPPET_GALLERY, false);
 		$this->default[ImageExtObject::PARA_FIGURE_CLASS] = kirby()->option(self::CONFIG_PARAM_DEFAULT_CLASS_FIGURE, "image-figure");
 		$this->default[ImageExtObject::PARA_FIGURE_CAPTION] = false;
 		$this->default[ImageExtObject::PARA_FIGURE_CAPTION_TOP] = kirby()->option(self::CONFIG_PARAM_DEFAULT_CAPTION_TOP, false);
@@ -238,6 +244,7 @@ class ImageExt {
 				case ImageExtObject::TAG_IMAGE_GALLERY:
 					$gallery = new ImageExtGallery( $this );
 					$gallery->parse( $tag, $block, $attr_template );
+					$gallery->optimizeOutput();
 					if ( $this->isDebug() )
 						$content = $gallery->getDebug();
 					else
@@ -248,6 +255,7 @@ class ImageExt {
 					$image = new ImageExtImage( $this );
 					$image->parse( $tag, $block, $attr_template );	
 					$image->parseFileAttributes();
+					$image->optimizeOutput();
 					if ( $this->isDebug() ) {
 						$content = $image->getDebug();
 					} else {
@@ -273,6 +281,7 @@ class ImageExt {
 		$imageExtImage = new ImageExtImage( $imageExt );
 		$imageExtImage->parse( ImageExtImage::TAG_IMAGE, array(), $attr );
 		$imageExtImage->parseFileAttributes();
+		$imageExtImage->optimizeOutput();
 		if ( $imageExt->isDebug() ) {
 			return $imageExtImage->getDebug();
 		} else {

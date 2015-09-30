@@ -38,6 +38,19 @@ class ImageExtImage extends ImageExtObject {
 			if ( $this->data[self::ARRAY_ATTR][self::PARA_GALLERY_ID] !== false && !empty($this->data[self::ARRAY_ATTR][self::PARA_GALLERY_ID]) ) {
 				$this->data[self::ARRAY_ATTR][self::PARA_LINK_URL] = $source->url();
 			}
+
+			if ( is_string( $this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT] ) && WebHelper::startsWith($this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT], '{file-') && WebHelper::endsWith($this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT], '}') ) {
+				$field = substr($this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT], 6, strlen($this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT])-7);
+				$this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT] = $source->{$field}()->toString();		
+			}			
+			if ( is_string( $this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE] ) && WebHelper::startsWith($this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE], '{file-') && WebHelper::endsWith($this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE], '}') ) {
+				$field = substr($this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE], 6, strlen($this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE])-7);
+				$this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE] = $source->{$field}()->toString();		
+			}
+			if ( is_string( $this->data[self::ARRAY_ATTR][self::PARA_LINK_TITLE] ) && WebHelper::startsWith($this->data[self::ARRAY_ATTR][self::PARA_LINK_TITLE], '{file-') && WebHelper::endsWith($this->data[self::ARRAY_ATTR][self::PARA_LINK_TITLE], '}') ) {
+				$field = substr($this->data[self::ARRAY_ATTR][self::PARA_LINK_TITLE], 6, strlen($this->data[self::ARRAY_ATTR][self::PARA_LINK_TITLE])-7);
+				$this->data[self::ARRAY_ATTR][self::PARA_LINK_TITLE] = $source->{$field}()->toString();		
+			}
 		}
 	}
 	
@@ -183,77 +196,80 @@ class ImageExtImage extends ImageExtObject {
 	public function toHTML(){
 		$content = "";
 		
-		if ( array_key_exists(self::ARRAY_SRCSET, $this->data) && is_array( $this->data[self::ARRAY_SRCSET] ) && count($this->data[self::ARRAY_SRCSET]) > 0 ){
-			// Source image exist
-			
-			foreach ( $this->data[self::ARRAY_SRCSET] as $srcset ) {
+		if( $this->data[self::ARRAY_ATTR][self::PARA_SNIPPET_IMAGE] !== false && file_exists( kirby()->roots->snippets ().'/'.$this->data[self::ARRAY_ATTR][self::PARA_SNIPPET_IMAGE].'.php' ) ){
+			$content = ( string ) snippet( $this->data[self::ARRAY_ATTR][self::PARA_SNIPPET_IMAGE], array( 'data' => $this->data), true );
+		}else{
+			if ( array_key_exists(self::ARRAY_SRCSET, $this->data) && is_array( $this->data[self::ARRAY_SRCSET] ) && count($this->data[self::ARRAY_SRCSET]) > 0 ){
+				// Source image exist
+				
+				foreach ( $this->data[self::ARRAY_SRCSET] as $srcset ) {
+					$attr = array();
+					if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_MIMETYPE]) )
+						$attr['type'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_MIMETYPE];
+					if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_MEDIAQUERY]) )
+						$attr['media'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_MEDIAQUERY];
+					$content .= \Html::tag("source", null, $attr);
+				}
+				
 				$attr = array();
-				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_MIMETYPE]) )
-					$attr['type'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_MIMETYPE];
-				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_MEDIAQUERY]) )
-					$attr['media'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_MEDIAQUERY];
-				$content .= \Html::tag("source", null, $attr);
-			}
-			
-			$attr = array();
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_OUTPUT_URL]) )
-				$attr['src'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_OUTPUT_URL];
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_CLASS]) )
-				$attr['class'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_CLASS];
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT]) )
-				$attr['alt'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT];
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE]) )
-				$attr['title'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE];
-			$content .= \Html::tag("img", null, $attr);
-			
-			$attr = array();
-			$content = \Html::tag("picture", $content, $attr);
-		} else {
-			// Image
-			$attr = array();
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_OUTPUT_URL]) )
-				$attr['src'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_OUTPUT_URL];
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_CLASS]) )
-				$attr['class'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_CLASS];
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT]) )
-				$attr['alt'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT];
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE]) )
-				$attr['title'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE];
-			$content = \Html::tag("img", null, $attr);
-		}
-		
-		// Hyperlink
-		if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_LINK_URL]) ) {
-			$attr = array();
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_LINK_REL]) )
-				$attr['rel'] = $this->data[self::ARRAY_ATTR][self::PARA_LINK_REL];
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_LINK_TARGET]) )
-				$attr['target'] = $this->data[self::ARRAY_ATTR][self::PARA_LINK_TARGET];
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_LINK_TITLE]) )
-				$attr['title'] = $this->data[self::ARRAY_ATTR][self::PARA_LINK_TITLE];
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_LINK_CLASS]) )
-				$attr['class'] = $this->data[self::ARRAY_ATTR][self::PARA_LINK_CLASS];
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_GALLERY_LINK_CLASS]) ) {
-				if ( !empty($attr['class']) )
-					$attr['class'] = $attr['class']." ".$this->data[self::ARRAY_ATTR][self::PARA_GALLERY_LINK_CLASS];
-				else
-					$attr['class'] = $this->data[self::ARRAY_ATTR][self::PARA_GALLERY_LINK_CLASS];
-			}
-			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_GALLERY_ID]) ){
-				$attr[$this->data[self::ARRAY_ATTR][self::PARA_GALLERY_LINK_ATTR]] = $this->data[self::ARRAY_ATTR][self::PARA_GALLERY_PREFIX].$this->data[self::ARRAY_ATTR][self::PARA_GALLERY_ID];
-			}
-			$content = \Html::a($this->data[self::ARRAY_ATTR][self::PARA_LINK_URL], $content, $attr);
-		}
-		
-		// Figure
-		if ( $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION] !== false && !empty($this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION]) ) {
-			if ( $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION] === true && !empty($this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION_FIELD]) && $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION_FIELD] !== false ){
-				$content = WebHelper::blockFigure($content, $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION_FIELD], $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION_TOP], $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CLASS]);
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_OUTPUT_URL]) )
+					$attr['src'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_OUTPUT_URL];
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_CLASS]) )
+					$attr['class'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_CLASS];
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT]) )
+					$attr['alt'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT];
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE]) )
+					$attr['title'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE];
+				$content .= \Html::tag("img", null, $attr);
+				
+				$attr = array();
+				$content = \Html::tag("picture", $content, $attr);
 			} else {
-				$content = WebHelper::blockFigure($content, $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION], $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION_TOP], $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CLASS]);
+				// Image
+				$attr = array();
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_OUTPUT_URL]) )
+					$attr['src'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_OUTPUT_URL];
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_CLASS]) )
+					$attr['class'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_CLASS];
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT]) )
+					$attr['alt'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_ALT];
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE]) )
+					$attr['title'] = $this->data[self::ARRAY_ATTR][self::PARA_IMG_TITLE];
+				$content = \Html::tag("img", null, $attr);
+			}
+			
+			// Hyperlink
+			if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_LINK_URL]) ) {
+				$attr = array();
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_LINK_REL]) )
+					$attr['rel'] = $this->data[self::ARRAY_ATTR][self::PARA_LINK_REL];
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_LINK_TARGET]) )
+					$attr['target'] = $this->data[self::ARRAY_ATTR][self::PARA_LINK_TARGET];
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_LINK_TITLE]) )
+					$attr['title'] = $this->data[self::ARRAY_ATTR][self::PARA_LINK_TITLE];
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_LINK_CLASS]) )
+					$attr['class'] = $this->data[self::ARRAY_ATTR][self::PARA_LINK_CLASS];
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_GALLERY_LINK_CLASS]) ) {
+					if ( !empty($attr['class']) )
+						$attr['class'] = $attr['class']." ".$this->data[self::ARRAY_ATTR][self::PARA_GALLERY_LINK_CLASS];
+					else
+						$attr['class'] = $this->data[self::ARRAY_ATTR][self::PARA_GALLERY_LINK_CLASS];
+				}
+				if ( !empty($this->data[self::ARRAY_ATTR][self::PARA_GALLERY_ID]) ){
+					$attr[$this->data[self::ARRAY_ATTR][self::PARA_GALLERY_LINK_ATTR]] = $this->data[self::ARRAY_ATTR][self::PARA_GALLERY_PREFIX].$this->data[self::ARRAY_ATTR][self::PARA_GALLERY_ID];
+				}
+				$content = \Html::a($this->data[self::ARRAY_ATTR][self::PARA_LINK_URL], $content, $attr);
+			}
+			
+			// Figure
+			if ( $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION] !== false && !empty($this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION]) ) {
+				if ( $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION] === true && !empty($this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION_FIELD]) && $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION_FIELD] !== false ){
+					$content = WebHelper::blockFigure($content, $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION_FIELD], $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION_TOP], $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CLASS]);
+				} else {
+					$content = WebHelper::blockFigure($content, $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION], $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CAPTION_TOP], $this->data[self::ARRAY_ATTR][self::PARA_FIGURE_CLASS]);
+				}
 			}
 		}
-		
 		return $content;
 	}
 	
@@ -295,4 +311,16 @@ class ImageExtImage extends ImageExtObject {
 		));
 	}
 	
+	public function optimizeOutput(){
+		foreach($this->data[self::ARRAY_ATTR] as $key => $value){
+			switch($key){
+				case self::PARA_FIGURE_CAPTION:
+				case self::PARA_IMG_TITLE:
+				case self::PARA_LINK_TITLE:
+				case self::PARA_IMG_ALT:
+					$this->data[self::ARRAY_ATTR][$key] = htmlspecialchars($value, ENT_QUOTES|ENT_HTML5);
+					break;
+			}
+		}
+	}
 }

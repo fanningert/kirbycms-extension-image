@@ -33,6 +33,8 @@ class ImageExtObject {
 	
 	const PARA_DEBUG = "debug";
 	const PARA_DRIVER = "driver";
+	const PARA_SNIPPET_IMAGE = "snippet_image";
+	const PARA_SNIPPET_GALLERY = "snippet_gallery";
 	const PARA_PAGE_URL = "page_url";
 	const PARA_PAGE_ROOT = "page_root";
 	const PARA_PROFILE = "profile";
@@ -223,7 +225,7 @@ class ImageExtObject {
 				}
 			}
 		}
-		
+
 		// Set the other attributes
 		if ( is_array($attr) ) {
 			foreach($attr as $key => $value){
@@ -231,12 +233,17 @@ class ImageExtObject {
 					$key = $this->para_mapping[$key];
 				
 				if ( array_key_exists($key, $attr_result) )
-					$attr_result[$key] = $this->checkValue( $key, $value );
+					$attr_result[$key] = $value;
 			}
 			
 			if ( array_key_exists($tag, $attr) ) {
 				$attr_result[self::PARA_IMG_SOURCE] = $attr[$tag];
 			}
+		}
+		
+		// Check values
+		foreach($attr_result as $key => $value){ 
+			$attr_result[$key] = $this->checkValue( $key, $value, $attr_result);
 		}
 		
 		// Convert attributes to internal format
@@ -246,9 +253,12 @@ class ImageExtObject {
 		return $attr_result;
 	}
 	
-	protected function checkValue($key, $value){
+	protected function checkValue($key, $value, $attr_result=null){
 		switch ($key){
 			case self::PARA_FIGURE_CAPTION:
+			case self::PARA_IMG_TITLE:
+			case self::PARA_LINK_TITLE:
+			case self::PARA_IMG_ALT:
 				if ( is_bool( $value ) )
 					$value = $value;
 				elseif ( is_string( $value ) && ( $value === "true" || $value === "false" ) )
@@ -267,7 +277,7 @@ class ImageExtObject {
 				elseif ( $value === true || ( is_string($value) && strtolower($value) === "true" ) )
 					$value = 100;
 				else
-					$value = $this->default[$key];
+					$value = $this->imageExt->getDefaults()[$key];
 				break;
 			case self::PARA_FILTER_COLORIZE:
 				break;
@@ -281,7 +291,7 @@ class ImageExtObject {
 				elseif ( $value === true || $value === false )
 					$value = ($value === true)? 1 : $value;
 				else
-					$value = $this->default[$key];
+					$value = $this->imageExt->getDefaults()[$key];
 				break;
 			case self::PARA_UPSCALE:
 			case self::PARA_FILTER_EDGES:
@@ -294,7 +304,7 @@ class ImageExtObject {
 				elseif ( is_string($value) )
 					$value = (strtolower($value) === "true")? true: false;
 				else
-					$value = $this->default[$key];
+					$value = $this->imageExt->getDefaults()[$key];
 				break;
 			case self::PARA_FILTER_CONTRAST:
 				if ( is_int($value) && $value >= -100 && $value <= 100 )
@@ -302,7 +312,7 @@ class ImageExtObject {
 				elseif ( is_numeric($value) && intval($value) >= -100 && intval($value) <= 100 )
 					$value = intval($value);
 				else
-					$value = $this->default[$key];
+					$value = $this->imageExt->getDefaults()[$key];
 				break;
 			case self::PARA_FILTER_BRIGHTNESS:
 				if ( is_int($value) && $value >= -255 && $value <= 255 )
@@ -310,7 +320,7 @@ class ImageExtObject {
 				elseif ( is_numeric($value) && intval($value) >= -255 && intval($value) <= 255 )
 					$value = intval($value);
 				else
-					$value = $this->default[$key];
+					$value = $this->imageExt->getDefaults()[$key];
 				break;
 			case self::PARA_FILTER_SMOOTH:
 				if ( is_int($value) && $value >= -10 && $value <= 10 )
@@ -318,7 +328,7 @@ class ImageExtObject {
 				elseif ( is_numeric($value) && intval($value) >= -10 && intval($value) <= 10 )
 					$value = intval($value);
 				else
-					$value = $this->default[$key];
+					$value = $this->imageExt->getDefaults()[$key];
 				break;
 			case self::PARA_FILTER_PIXELATE:
 			case self::PARA_IMG_WIDTH:
@@ -330,7 +340,7 @@ class ImageExtObject {
 				elseif ( $value === true || $value === false )
 					$value = $value;
 				else
-					$value = $this->default[$key];
+					$value = $this->imageExt->getDefaults()[$key];
 				break;
 			case self::PARA_IMG_QUALITY:
 				if ( is_int($value) && $value >= 0 && $value <= 100 )
@@ -338,18 +348,24 @@ class ImageExtObject {
 				elseif ( is_numeric($value) && intval($value) >= 0 && intval($value) <= 100 )
 					$value = intval($value);
 				else
-					$value = $this->default[$key];
+					$value = $this->imageExt->getDefaults()[$key];
 				break;
 			case self::PARA_LINK_URL:
 				// Check if it a file of the current page
-				if ( $this->imageExt->getPage()->file($value) )
-					$value = $this->imageExt->getPage()->file($value)->url();
-				$value = \Url($value);
+				if ( strlen($value) > 0 ) {
+					if ( $this->imageExt->getPage()->file($value) )
+						$value = $this->imageExt->getPage()->file($value)->url();
+					$value = \Url($value);
+				}
 				break;
 			case self::PARA_FILTER_OVERLAY:
 				break;
 		}
 		return $value;
+	}
+	
+	public function optimizeOutput(){
+		
 	}
 	
 	/**
