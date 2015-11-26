@@ -35,7 +35,7 @@ class ImageExtGallery extends ImageExtObject {
 				
 				foreach ( $images as $image ) {
 					$attr = array();
-					$attr[WebHelper::BLOCK_ARRAY_VALUE_ATTRIBUTES][self::PARA_IMG_SOURCE] = $image;
+					$attr[WebHelper::BLOCK_ARRAY_VALUE_ATTRIBUTES][self::PARA_IMG_SOURCE] = trim( $image );
 					$this->data[ImageExtObject::ARRAY_IMAGES][] = $this->getImageArray(ImageExtObject::TAG_IMAGE, $attr, $this->data[self::ARRAY_ATTR]);
 				}
 			}
