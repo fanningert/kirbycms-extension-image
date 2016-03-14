@@ -6,6 +6,12 @@ Examples can you see in action here: [Kirby Extension - Image Extended](https://
 
 ## Installation
 
+### KirbyCli
+
+```
+kirby plugin:install fanningert/kirbycms-extension-image
+```
+
 ### GIT
 
 Go into the `{kirby_installation}/site/plugins` directory and execute following command.
@@ -29,6 +35,12 @@ $ git submodule update
 ### Manuell
 
 ## Update
+
+### KirbyCli
+
+```
+kirby plugin:update fanningert/kirbycms-extension-image
+```
 
 ### GIT
 

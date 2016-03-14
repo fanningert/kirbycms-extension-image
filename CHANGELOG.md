@@ -1,3 +1,7 @@
+# 1.0.1
+
+* Add KirbyCli support.
+
 # 1.0.0
 
 * Figure caption, link title, img title, img alt can have a field of file or page as source. `{file-field}` as content to the attributes. In the next release it will be possible to use `{page-field}`. And you can use this placeholder with static text.
